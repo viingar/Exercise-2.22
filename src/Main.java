@@ -21,18 +21,15 @@ public class Main {
 
         System.out.println("Введенная дата: " + dateFormat.format(date));
 
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_YEAR, 45);
         Date increasedDate = calendar.getTime();
         System.out.println("Увеличенная дата на 45 дней: " + dateFormat.format(increasedDate));
 
-
         calendar.set(Calendar.DAY_OF_YEAR, 1);
         Date startOfYearDate = calendar.getTime();
         System.out.println("Дата сдвинута на начало года: " + dateFormat.format(startOfYearDate));
-
 
         int workingDaysToAdd = 10;
         int daysAdded = 0;
@@ -60,9 +57,15 @@ public class Main {
             return;
         }
 
+        if (date.after(secondDate)) {
+            Date temp = date;
+            date = secondDate;
+            secondDate = temp;
+        }
+
         int workingDaysCount = 0;
         calendar.setTime(date);
-        while (calendar.getTime().before(secondDate)) {
+        while (!secondDate.before(calendar.getTime())) {
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
             if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
